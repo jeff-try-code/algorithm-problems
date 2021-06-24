@@ -41,3 +41,30 @@ find all products after current index save in new array
 return arry before * after
 
 */
+
+const specialProductList = (arr) => {
+  let productsBeforeIndex = Array(arr.length)
+  let accumulateProduct = 1
+  for (let i = 0 ; i < arr.length; i++) {
+    productsBeforeIndex[i] = accumulateProduct
+    accumulateProduct = accumulateProduct * arr[i]
+  }
+
+  let productsAfterIndex = Array(arr.length)
+  accumulateProduct = 1
+  for (let i = arr.length - 1 ; i >= 0; i --) {
+    productsAfterIndex[i] = accumulateProduct
+    accumulateProduct = accumulateProduct * arr[i]
+  }
+
+  let ans = Array(arr.length)
+  for (let i = 0 ; i < arr.length; i++) {
+    ans[i] = productsBeforeIndex[i] * productsAfterIndex[i]
+  }
+
+  return ans
+}
+
+let nums = [1, 2, 3, 4, 5]
+
+console.log(specialProductList(nums))

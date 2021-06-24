@@ -32,4 +32,12 @@ C: 2 ≤ n ≤ 100,000 where n is the length of nums
 
 Note:  Do this without using division.
 
+for loop input array
+find all products before curent index save in new array
+
+back loop input array
+find all products after current index save in new array
+
+return arry before * after
+
 */

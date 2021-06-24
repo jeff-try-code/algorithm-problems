@@ -43,28 +43,55 @@ return arry before * after
 */
 
 const specialProductList = (arr) => {
-  let productsBeforeIndex = Array(arr.length)
-  let accumulateProduct = 1
-  for (let i = 0 ; i < arr.length; i++) {
-    productsBeforeIndex[i] = accumulateProduct
-    accumulateProduct = accumulateProduct * arr[i]
+  let productsBeforeIndex = Array(arr.length);
+  let accumulateProduct = 1;
+  for (let i = 0; i < arr.length; i++) {
+    productsBeforeIndex[i] = accumulateProduct;
+    accumulateProduct = accumulateProduct * arr[i];
   }
 
-  let productsAfterIndex = Array(arr.length)
-  accumulateProduct = 1
-  for (let i = arr.length - 1 ; i >= 0; i --) {
-    productsAfterIndex[i] = accumulateProduct
-    accumulateProduct = accumulateProduct * arr[i]
+  let productsAfterIndex = Array(arr.length);
+  accumulateProduct = 1;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    productsAfterIndex[i] = accumulateProduct;
+    accumulateProduct = accumulateProduct * arr[i];
   }
 
-  let ans = Array(arr.length)
-  for (let i = 0 ; i < arr.length; i++) {
-    ans[i] = productsBeforeIndex[i] * productsAfterIndex[i]
+  let ans = Array(arr.length);
+  for (let i = 0; i < arr.length; i++) {
+    ans[i] = productsBeforeIndex[i] * productsAfterIndex[i];
   }
 
-  return ans
-}
+  return ans;
+};
 
-let nums = [1, 2, 3, 4, 5]
+// improvement (clean up)
+/*
 
-console.log(specialProductList(nums))
+Time Complexity
+O(n) since we loop the array twice we have O(2n)
+
+Space Complexity
+O(n) since we create a size size of array as the input array (not sure can we consider this as O(1) since the return array is required)
+
+*/
+const specialProductList2 = (arr) => {
+  let ans = Array(arr.length);
+  let accumulateProduct = 1;
+  for (let i = 0; i < arr.length; i++) {
+    ans[i] = accumulateProduct;
+    accumulateProduct = accumulateProduct * arr[i];
+  }
+
+  accumulateProduct = 1;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    ans[i] = accumulateProduct * ans[i];
+    accumulateProduct = accumulateProduct * arr[i];
+  }
+
+  return ans;
+};
+
+let nums = [1, 2, 3, 4, 5];
+
+console.log(specialProductList2(nums));

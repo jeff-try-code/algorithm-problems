@@ -63,11 +63,20 @@ loop the matrxi in (i,j)
     use help function to turn connected land to sea
 
 return count
+*/
+
+/*
+
+Time Complexity
+O(nm) since the matrix is n by m we have to every index of the matrix
+
+Space Complexity
+O(1) since we are not using any extra space
 
 */
 
 const numverOfIslands = (matrixMap) => {
-  let landToSea = (i, j) => {
+  const landToSea = (i, j) => {
     if (
       i >= 0 &&
       j >= 0 &&

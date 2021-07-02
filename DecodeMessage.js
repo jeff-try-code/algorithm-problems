@@ -47,4 +47,96 @@ message = "0012"
 Output
 0
 
+I: string of numbers
+O: the number of ways it can be decoded.
+E: return 0 if input is 0
+C: n ≤ 100,000 where n is the length of message
+
+ex:
+1214
+|    \
+214   14
+| \    | \ 
+14 4   4  r1
+| \  \  \
+4  r1 r1 r1
+|
+r1  
+
+sudo code:
+function decodeMessage(num string) {
+    function inrange (str) {
+        let num = Number(str)
+        return (num > 1= && num <= 26)
+    }
+
+    recursive help (index) {
+        if (index = string length - 1) {
+            return 1
+        }
+        if (string[index] = 0) {
+            return 0
+        }
+
+        let one = inrange(string[index]) ? help(index + 1) : 0
+        let two = inrange(string[index] + string[index + 1]) ? help(index + 2) : 0
+
+        retrun one + two
+
+    }
+    retrun help(0)
+}
 */
+
+const decodeMessage = (nums) => {
+    const inrange = (str) => {
+        let num = Number(str)
+        return (num >= 1 && num <= 26)
+    }
+
+    const help = (i) => {
+        if (i >= nums.length) return 1
+        if (nums[i] == 0) return 0
+
+        let one = inrange(nums[i]) ? help(i + 1) : 0
+        let two = inrange(nums[i] + nums[i + 1]) ? help(i + 2) : 0
+
+        return one + two
+    } 
+
+    return help(0)
+
+}
+
+// improvement (clean up)
+/*
+
+Time Complexity
+O(n) since the it is checking every index
+Space Complexity
+O(n) since memo was created for each index
+
+*/
+const decodeMessage = (nums) => {
+    const inrange = (str) => {
+        let num = Number(str)
+        return (num >= 1 && num <= 26)
+    }
+
+    const help = (i, memo = {}) => {
+        if (i >= nums.length) return 1
+        if (nums[i] === '0') return 0
+        if (i in memo) return memo[i]
+
+        let res = help(i + 1, memo)
+        if(inrange(nums[i] + nums[i + 1])) {
+            res += help(i + 2,memo) 
+        }
+        memo[i] = res
+        return res
+    } 
+
+    return help(0)
+}
+
+
